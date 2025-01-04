@@ -96,3 +96,73 @@ The request body should be a JSON object containing the following fields:
     "email": "john.doe@example.com"
   }
 }
+```
+
+## /users/profile
+
+### Description
+This endpoint is used to get the profile of the authenticated user.
+
+### Method
+`GET`
+
+### Headers
+- `Authorization` (string, required): The authentication token of the user.
+
+### Response
+- `200 OK`: The user profile was successfully retrieved. The response will include a JSON object with the user profile.
+
+### Status Codes
+- `200 OK`: User profile successfully retrieved.
+- `401 Unauthorized`: Authentication token is missing or invalid.
+
+### Example Request
+```
+GET /users/profile HTTP/1.1
+Host: example.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### Example Response
+```json
+{
+  "_id": "60c72b2f9b1e8b001c8e4b8a",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com"
+}
+```
+
+## /users/logout
+
+### Description
+This endpoint is used to log out the authenticated user.
+
+### Method
+`GET`
+
+### Headers
+- `Authorization` (string, required): The authentication token of the user.
+
+### Response
+- `200 OK`: The user was successfully logged out.
+
+### Status Codes
+- `200 OK`: User successfully logged out.
+- `401 Unauthorized`: Authentication token is missing or invalid.
+
+### Example Request
+```
+GET /users/logout HTTP/1.1
+Host: example.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### Example Response
+```json
+{
+  "message": "User successfully logged out"
+}
+```
