@@ -166,3 +166,72 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
   "message": "User successfully logged out"
 }
 ```
+
+## /captains/register
+
+### Description
+This endpoint is used to register a new captain.
+
+### Method
+`POST`
+
+### Request Body
+The request body should be a JSON object containing the following fields:
+- `fullname`: An object with the following properties:
+  - `firstname` (string, required): The first name of the captain. Must be at least 3 characters long.
+  - `lastname` (string, optional): The last name of the captain.
+- `email` (string, required): The email address of the captain. Must be a valid email format.
+- `password` (string, required): The password for the captain. Must be at least 5 characters long.
+- `vehicle`: An object with the following properties:
+  - `color` (string, required): The color of the vehicle. Must be at least 3 characters long.
+  - `plate` (string, required): The plate number of the vehicle. Must be at least 3 characters long.
+  - `capacity` (number, required): The capacity of the vehicle. Must be at least 1.
+  - `vehicleType` (string, required): The type of the vehicle. Must be one of 'Car', 'bike', 'auto'.
+
+### Response
+- `201 Created`: The captain was successfully created. The response will include a JSON object with the following fields:
+  - `token`: The authentication token for the captain.
+  - `captain`: The created captain object.
+
+### Status Codes
+- `201 Created`: Captain successfully registered.
+- `400 Bad Request`: Validation error. The response will include a JSON object with the validation errors.
+
+### Example Request
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "password": "password123",
+  "vehicle": {
+    "color": "Red",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "Car"
+  }
+}
+```
+
+### Example Response
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "captain": {
+    "_id": "60c72b2f9b1e8b001c8e4b8a",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "Car"
+    }
+  }
+}
+```
