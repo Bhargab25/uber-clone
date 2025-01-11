@@ -235,3 +235,130 @@ The request body should be a JSON object containing the following fields:
   }
 }
 ```
+
+## /captains/login
+
+### Description
+This endpoint is used to log in an existing captain.
+
+### Method
+`POST`
+
+### Request Body
+The request body should be a JSON object containing the following fields:
+- `email` (string, required): The email address of the captain. Must be a valid email format.
+- `password` (string, required): The password for the captain. Must be at least 5 characters long.
+
+### Response
+- `200 OK`: The captain was successfully logged in. The response will include a JSON object with the following fields:
+  - `token`: The authentication token for the captain.
+  - `captain`: The logged-in captain object.
+
+### Status Codes
+- `200 OK`: Captain successfully logged in.
+- `400 Bad Request`: Validation error. The response will include a JSON object with the validation errors.
+- `401 Unauthorized`: Invalid email or password.
+
+### Example Request
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+### Example Response
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "captain": {
+    "_id": "60c72b2f9b1e8b001c8e4b8a",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "vehicle": {
+      "color": "Red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "Car"
+    }
+  }
+}
+```
+
+## /captains/profile
+
+### Description
+This endpoint is used to get the profile of the authenticated captain.
+
+### Method
+`GET`
+
+### Headers
+- `Authorization` (string, required): The authentication token of the captain.
+
+### Response
+- `200 OK`: The captain profile was successfully retrieved. The response will include a JSON object with the captain profile.
+
+### Status Codes
+- `200 OK`: Captain profile successfully retrieved.
+- `401 Unauthorized`: Authentication token is missing or invalid.
+
+### Example Request
+```
+GET /captains/profile HTTP/1.1
+Host: example.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### Example Response
+```json
+{
+  "_id": "60c72b2f9b1e8b001c8e4b8a",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "vehicle": {
+    "color": "Red",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "Car"
+  }
+}
+```
+
+## /captains/logout
+
+### Description
+This endpoint is used to log out the authenticated captain.
+
+### Method
+`GET`
+
+### Headers
+- `Authorization` (string, required): The authentication token of the captain.
+
+### Response
+- `200 OK`: The captain was successfully logged out.
+
+### Status Codes
+- `200 OK`: Captain successfully logged out.
+- `401 Unauthorized`: Authentication token is missing or invalid.
+
+### Example Request
+```
+GET /captains/logout HTTP/1.1
+Host: example.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### Example Response
+```json
+{
+  "message": "Captain successfully logged out"
+}
+```
